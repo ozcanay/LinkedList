@@ -103,8 +103,30 @@ void removeDuplicateNode(Node* headPtr) {
 
 }
 
-Node* findMiddleNode(Node* headPtr) {
+int getMiddleValue(Node* headPtr) {
+    int retVal;
 
+    if(sizeList(headPtr) % 2 == 0) {
+        std::cout << "Size of the linkedlist is even. So there is no middle node in the linkedlist.\n";
+        return 0;
+    }
+
+
+    if(headPtr) {
+        Node* fast_headPtr = headPtr;
+        while(fast_headPtr && fast_headPtr->next) {
+/*            std::cout << "headptr " << headPtr->data << std::endl;
+            std::cout << "fast headptr " << fast_headPtr->data << std::endl;*/
+            fast_headPtr = fast_headPtr->next->next;
+            headPtr = headPtr->next;
+        }
+        retVal = headPtr->data;
+    } else {
+        retVal = 0;
+        std::cout << "There are no nodes in the linked list. So there is no middle node.\n";
+    }
+
+    return retVal;
 }
 
 bool isPresentData(Node* headPtr, int data) {
@@ -155,6 +177,12 @@ int main() {
     printList(headPtr);
     insertNode(headPtr, 2, 99);
     printList(headPtr);
+    appendNode(headPtr, 61);
+    printList(headPtr);
+
+
+    std::cout << "Searching for the middle node...\n";
+    std::cout << getMiddleValue(headPtr);
 
     return 0;
 }
