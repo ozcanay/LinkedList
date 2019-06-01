@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_set>
 
 struct Node {
     int data;
@@ -99,8 +100,25 @@ void insertNode(Node* headPtr, int pos, int data) {
     }
 }
 
+//CTCI Question
 void removeDuplicateNode(Node* headPtr) {
+    Node* current = headPtr;
+    Node* prev = nullptr;
+    std::unordered_set<int> node_values {};
 
+    while(current) {
+        if(node_values.find(current->data) != node_values.end()) {
+            // If a value has been encountered before.
+            prev->next = current->next;
+            delete current;
+        } else {
+            // If a value is encountered the first time
+            node_values.insert(current->data);
+            prev = current;
+        }
+
+        current = current->next;
+    }
 }
 
 int getMiddleValue(Node* headPtr) {
@@ -173,7 +191,7 @@ int main() {
     deleteNode(headPtr, 8);
     // sizeList(headPtr);
     printList(headPtr);
-    replaceNode(headPtr, 4, 43);
+    replaceNode(headPtr, 4, 1);
     printList(headPtr);
     insertNode(headPtr, 2, 99);
     printList(headPtr);
@@ -182,7 +200,15 @@ int main() {
 
 
     std::cout << "Searching for the middle node...\n";
-    std::cout << getMiddleValue(headPtr);
+    std::cout << getMiddleValue(headPtr) << "\n";
 
-    return 0;
+    appendNode(headPtr, 99);
+    printList(headPtr);
+    appendNode(headPtr, 3);
+    printList(headPtr);
+
+    std::cout << "after removing duplicates: \n";
+    removeDuplicateNode(headPtr);
+    printList(headPtr);
+
 }
