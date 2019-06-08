@@ -6,6 +6,18 @@ struct Node {
     Node* next;
 };
 
+void printList(Node* headPtr);
+void appendNode(Node* headPtr, int data);
+void pushNode(Node* headPtr, int data);
+void deleteNode(Node* headPtr, int data);
+int getListSize(Node* headPtr);
+void replaceNode(Node* headPtr, int pos, int data);
+void insertNode(Node* headPtr, int pos, int data);
+void removeDuplicateNode(Node* headPtr);
+int getMiddleValue(Node* headPtr);
+bool isPresentData(Node* headPtr, int data);
+Node* reverseList(Node* headPtr);
+
 void printList(Node* headPtr) {
     Node* currentPtr = headPtr;
 
@@ -47,7 +59,7 @@ void deleteNode(Node* headPtr, int data) {
     }
 }
 
-int sizeList(Node* headPtr) {
+int getListSize(Node* headPtr) {
     int size = 0;
     Node* currentPtr = headPtr;
 
@@ -124,7 +136,7 @@ void removeDuplicateNode(Node* headPtr) {
 int getMiddleValue(Node* headPtr) {
     int retVal;
 
-    if(sizeList(headPtr) % 2 == 0) {
+    if(getListSize(headPtr) % 2 == 0) {
         std::cout << "Size of the linkedlist is even. So there is no middle node in the linkedlist.\n";
         return 0;
     }
@@ -161,6 +173,26 @@ bool isPresentData(Node* headPtr, int data) {
     return isPresent;
 }
 
+Node* reverseList(Node* headPtr) {
+    Node* current = headPtr;
+    Node* prev = nullptr;
+    Node* next = nullptr;
+
+    while(current) {
+        next = current->next;
+
+        //// Reversing happens here.
+        current->next = prev;
+
+        //// Sliding pointer frame.
+        prev = current;
+        current = next;
+    }
+    headPtr = prev;
+
+    return headPtr;
+}
+
 int main() {
     Node* lastPtr = new Node;
     lastPtr->data = 3;
@@ -179,7 +211,7 @@ int main() {
     printList(headPtr);
     appendNode(headPtr,8);
     printList(headPtr);
-    std::cout << "Size of list is " << sizeList(headPtr) << std::endl;
+    std::cout << "Size of list is " << getListSize(headPtr) << std::endl;
     appendNode(headPtr, 34);
     printList(headPtr);
 
@@ -189,7 +221,7 @@ int main() {
     }
 
     deleteNode(headPtr, 8);
-    // sizeList(headPtr);
+    // getListSize(headPtr);
     printList(headPtr);
     replaceNode(headPtr, 4, 1);
     printList(headPtr);
@@ -210,5 +242,7 @@ int main() {
     std::cout << "after removing duplicates: \n";
     removeDuplicateNode(headPtr);
     printList(headPtr);
+    std::cout << "will reverse the list now: \n";
+    printList(reverseList(headPtr));
 
 }
