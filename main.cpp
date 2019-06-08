@@ -17,6 +17,7 @@ void removeDuplicateNode(Node* headPtr);
 int getMiddleValue(Node* headPtr);
 bool isPresentData(Node* headPtr, int data);
 Node* reverseList(Node* headPtr);
+int nthToLastNodeIterative(Node* headPtr, int n);
 
 void printList(Node* headPtr) {
     Node* currentPtr = headPtr;
@@ -192,6 +193,24 @@ Node* reverseList(Node* headPtr) {
 
     return headPtr;
 }
+int nthToLastNodeIterative(Node* headPtr, int n) {
+    if(!headPtr || n < 0) return -1;
+
+    Node* aheadPtr = headPtr;
+    Node* behindPtr = headPtr;
+
+    while(n != 0) {
+        aheadPtr = aheadPtr->next;
+        n--;
+    }
+
+    while(aheadPtr) {
+        behindPtr = behindPtr->next;
+        aheadPtr = aheadPtr->next;
+    }
+
+    return behindPtr->data;
+}
 
 int main() {
     Node* lastPtr = new Node;
@@ -243,6 +262,8 @@ int main() {
     removeDuplicateNode(headPtr);
     printList(headPtr);
     std::cout << "will reverse the list now: \n";
-    printList(reverseList(headPtr));
+    // printList(reverseList(headPtr));
+    printList(headPtr);
+    std::cout << nthToLastNodeIterative(headPtr, 2) << std::endl;
 
 }
