@@ -18,6 +18,7 @@ int getMiddleValue(Node* headPtr);
 bool isPresentData(Node* headPtr, int data);
 Node* reverseList(Node* headPtr);
 int nthToLastNodeIterative(Node* headPtr, int n);
+Node* addNodes(Node* headPtr1, Node* headPtr2); // CTCI 2.4
 
 void printList(Node* headPtr) {
     Node* currentPtr = headPtr;
@@ -212,8 +213,12 @@ int nthToLastNodeIterative(Node* headPtr, int n) {
     return behindPtr->data;
 }
 
+Node* addNodes(Node* headPtr1, Node* headPtr2) {
+
+}
+
 int main() {
-    Node* lastPtr = new Node;
+/*    Node* lastPtr = new Node;
     lastPtr->data = 3;
     lastPtr->next = nullptr;
 
@@ -264,6 +269,19 @@ int main() {
     std::cout << "will reverse the list now: \n";
     // printList(reverseList(headPtr));
     printList(headPtr);
-    std::cout << nthToLastNodeIterative(headPtr, 2) << std::endl;
+    std::cout << nthToLastNodeIterative(headPtr, 2) << std::endl;*/
 
+    ////
+    Node* headPtr2 = new Node;
+    headPtr2->data = 3;
+    appendNode(headPtr2, 1);
+    appendNode(headPtr2, 5);
+
+    Node* headPtr3 = new Node;
+    headPtr3->data = 5;
+    appendNode(headPtr3, 9);
+    appendNode(headPtr3, 2);
+
+    printList(headPtr2);
+    printList(headPtr3);
 }
