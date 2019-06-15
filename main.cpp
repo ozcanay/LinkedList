@@ -49,13 +49,28 @@ void pushNode(Node* headPtr, int data) {
 }
 
 void deleteNode(Node* headPtr, int data) {
+    if(!headPtr) return;
     Node* currentPtr = headPtr;
 
+    if(headPtr->data == data) {
+        Node* temp = headPtr->next;
+        headPtr->data = headPtr->next->data;
+        headPtr->next = headPtr->next->next;
+        delete temp;
+    }
+
     while(currentPtr->next) {
-        if(currentPtr->next->data == data) { // Gotta check forward to be able to see necessary changes to be made.
-            Node* tempPtr = currentPtr->next;
-            currentPtr->next = currentPtr->next->next;
-            delete(tempPtr);
+        if(currentPtr->next->data == data) {
+            Node* temp = currentPtr->next;
+
+            if(currentPtr->next->next)
+                currentPtr->next = currentPtr->next->next;
+            else {
+                currentPtr->next = nullptr;
+                break;
+            }
+
+            delete temp;
         }
         currentPtr = currentPtr->next;
     }
@@ -273,15 +288,17 @@ int main() {
 
     ////
     Node* headPtr2 = new Node;
-    headPtr2->data = 3;
-    appendNode(headPtr2, 1);
+    headPtr2->data = 5;
+    appendNode(headPtr2, 2);
+    appendNode(headPtr2, 3);
+    appendNode(headPtr2, 4);
     appendNode(headPtr2, 5);
 
-    Node* headPtr3 = new Node;
-    headPtr3->data = 5;
-    appendNode(headPtr3, 9);
-    appendNode(headPtr3, 2);
 
     printList(headPtr2);
-    printList(headPtr3);
+    std::cout << getListSize(headPtr2) << std::endl;
+    deleteNode(headPtr2, 5);
+    std::cout << getListSize(headPtr2) << std::endl;
+    printList(headPtr2);
+
 }
