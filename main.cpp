@@ -44,8 +44,11 @@ void appendNode(Node* headPtr, int data) {
     currentPtr->next = newNodePtr;
 }
 
-void pushNode(Node* headPtr, int data) {
-
+void pushNode(Node** ptrToHeadPtr, int data) {
+    Node* new_head = new Node;
+    new_head->data = data;
+    new_head->next = *ptrToHeadPtr;
+    *ptrToHeadPtr = new_head;
 }
 
 void deleteNode(Node* headPtr, int data) {
@@ -296,9 +299,11 @@ int main() {
 
 
     printList(headPtr2);
-    std::cout << getListSize(headPtr2) << std::endl;
+    pushNode(&headPtr2, 7);
+    printList(headPtr2);
+/*    std::cout << getListSize(headPtr2) << std::endl;
     deleteNode(headPtr2, 5);
     std::cout << getListSize(headPtr2) << std::endl;
-    printList(headPtr2);
+    printList(headPtr2);*/
 
 }
