@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unordered_set>
+#include <vector>
 
 struct Node {
     int data;
@@ -19,6 +20,29 @@ bool isPresentData(Node* headPtr, int data);
 Node* reverseList(Node* headPtr);
 int nthToLastNodeIterative(Node* headPtr, int n);
 Node* addNodes(Node* headPtr1, Node* headPtr2); // CTCI 2.4
+Node* createLinkedList(const std::vector<int>& vec);
+
+Node* createLinkedList(const std::vector<int>& vec) {
+    if(!vec.empty()) {
+        std::vector<Node *> ptrs;
+
+        for (auto data : vec) {
+            Node *node = new Node;
+            node->data = data;
+            ptrs.push_back(node);
+        }
+
+        Node *headPtr = ptrs.front();
+
+        for (int i = 0; i < ptrs.size() - 1; i++) {
+            ptrs[i]->next = ptrs[i + 1];
+        }
+
+        ptrs.back()->next = nullptr;
+
+        return headPtr;
+    }
+}
 
 void printList(Node* headPtr) {
     Node* currentPtr = headPtr;
@@ -289,7 +313,7 @@ int main() {
     printList(headPtr);
     std::cout << nthToLastNodeIterative(headPtr, 2) << std::endl;*/
 
-    ////
+/*    ////
     Node* headPtr2 = new Node;
     headPtr2->data = 5;
     appendNode(headPtr2, 2);
@@ -300,10 +324,13 @@ int main() {
 
     printList(headPtr2);
     pushNode(&headPtr2, 7);
-    printList(headPtr2);
+    printList(headPtr2);*/
 /*    std::cout << getListSize(headPtr2) << std::endl;
     deleteNode(headPtr2, 5);
     std::cout << getListSize(headPtr2) << std::endl;
     printList(headPtr2);*/
+
+    Node* headPtr = createLinkedList({});
+    printList(headPtr);
 
 }
